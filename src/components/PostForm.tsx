@@ -9,6 +9,8 @@ const PostForm = ({ onSubmit }: Props) => {
   const newPost: Post = {
     title: "",
     body: "",
+    completed: false,
+    completionDate: undefined,
   };
 
   const [post, setPost] = useState<Post>(newPost);

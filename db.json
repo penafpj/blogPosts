@@ -3,17 +3,21 @@
     {
       "id": "1",
       "title": "first title",
-      "body": "first body"
+      "body": "first body",
+      "completed": false
     },
     {
       "id": "2",
       "title": "second title",
-      "body": "second body"
+      "body": "second body",
+      "completed": false
     },
     {
       "id": "3",
       "title": "third title",
-      "body": "third body"
+      "body": "third body",
+      "completed": false,
+      "completionDate": ""
     }
   ]
 }
