@@ -1,6 +1,6 @@
 import PostForm from "./PostForm";
 import { PostNew } from "../types/Post";
-import { useAddPost } from "../services/post.queries";
+import { useAddPost } from "../services/post.queries.hooks";
 
 const AddPost = () => {
   const addPost = useAddPost();
