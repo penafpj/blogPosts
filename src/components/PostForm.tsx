@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Post } from "../types/Post";
-import { Form } from "react-bootstrap";
 
 interface Props {
   isAdd: boolean;
@@ -27,9 +26,15 @@ const PostForm = ({ isAdd, existingPost, onSubmit }: Props) => {
     setPost(newPost); //  reset the form
   };
 
+  const handleCompletedCheckbox = () => {
+    const completed = !post.completed;
+    const completedDate = completed ? new Date() : undefined;
+    setPost({ ...post, completed: completed, completionDate: completedDate });
+  };
+
   return (
     <>
-      <Form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Title</label>
           <input
@@ -57,14 +62,11 @@ const PostForm = ({ isAdd, existingPost, onSubmit }: Props) => {
             type="checkbox"
             name="completed"
             checked={post.completed}
-            onClick={() => {
-              const completed = !post.completed;
-              setPost({ ...post, completed: completed });
-            }}
+            onChange={handleCompletedCheckbox}
           />
         </div>
         <input type="submit" className="btn btn-primary" />
-      </Form>
+      </form>
       {JSON.stringify(post)}
     </>
   );
