@@ -1,14 +1,22 @@
-import { Post, PostNew } from "../types/Post";
+import { Post } from "../types/Post";
 import { axiosClient } from "./api-client";
 
+const urlEntity = "/posts";
+
 export const getAllPostsService = async () => {
-  return await axiosClient.get<Post[]>("/posts");
+  return await axiosClient.get<Post[]>(urlEntity);
 };
 
-export const getPostByIdService = async (id: number) => {
-  return await axiosClient.get<Post>(`/posts/${id}`);
+export const getPostByIdService = async (id: string) => {
+  return await axiosClient.get<Post>(`${urlEntity}/${id}`).then((response) => {
+    return response.data;
+  });
 };
 
-export const createPostService = async (postToAdd: PostNew) => {
-  return await axiosClient.post("/posts", postToAdd);
+export const addPostService = async (post: Post) => {
+  return await axiosClient.post(urlEntity, post);
+};
+
+export const updatePostService = async (post: Post) => {
+  return await axiosClient.put(urlEntity + `/${post.id}`, post);
 };

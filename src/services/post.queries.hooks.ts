@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  createPostService,
+  addPostService,
   getAllPostsService,
   getPostByIdService,
+  updatePostService,
 } from "./post.services";
 
 //  create a Hook.  Naming standard is the preface function name with "use" when creating Hooks
@@ -13,7 +14,7 @@ export function usePosts() {
   });
 }
 
-export function usePostById(id: number) {
+export function usePostById(id: string) {
   return useQuery({
     queryKey: ["post", id],
     queryFn: () => getPostByIdService(id),
@@ -24,7 +25,16 @@ export function useAddPost() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createPostService,
+    mutationFn: addPostService,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["posts"] }),
+  });
+}
+
+export function useUpdatePost() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updatePostService,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["posts"] }),
   });
 }

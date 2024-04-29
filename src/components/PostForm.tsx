@@ -2,18 +2,23 @@ import { useState } from "react";
 import { Post } from "../types/Post";
 
 interface Props {
+  isAdd: boolean;
+  existingPost?: Post;
   onSubmit: (post: Post) => void;
 }
 
-const PostForm = ({ onSubmit }: Props) => {
+const PostForm = ({ isAdd, existingPost, onSubmit }: Props) => {
   const newPost: Post = {
+    id: "",
     title: "",
     body: "",
     completed: false,
     completionDate: undefined,
   };
 
-  const [post, setPost] = useState<Post>(newPost);
+  const initPostState = isAdd ? newPost : existingPost!;
+
+  const [post, setPost] = useState<Post>(initPostState);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -43,7 +48,23 @@ const PostForm = ({ onSubmit }: Props) => {
           onChange={(e) => setPost({ ...post, body: e.target.value })}
         />
       </div>
-      <input type="submit" />
+      <div>
+        <label htmlFor="completed">Completed</label>
+        <input
+          id="completed"
+          type="checkbox"
+          name="completed"
+          checked={post.completed}
+          onChange={(e) => {
+            console.log(e.target.value);
+
+            const value = e.target.value ? e.target.value == "1" : false;
+
+            setPost({ ...post, completed: value });
+          }}
+        />
+      </div>
+      <input type="submit" className="btn btn-primary" />
     </form>
   );
 };
