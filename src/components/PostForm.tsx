@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Post } from "../types/Post";
+import { Form } from "react-bootstrap";
 
 interface Props {
   isAdd: boolean;
@@ -27,45 +28,45 @@ const PostForm = ({ isAdd, existingPost, onSubmit }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Title</label>
-        <input
-          id="title"
-          type="text"
-          name="title"
-          value={post.title}
-          onChange={(e) => setPost({ ...post, title: e.target.value })}
-        />
-      </div>
-      <div>
-        <label htmlFor="body">Body</label>
-        <input
-          id="body"
-          type="text"
-          name="body"
-          value={post.body}
-          onChange={(e) => setPost({ ...post, body: e.target.value })}
-        />
-      </div>
-      <div>
-        <label htmlFor="completed">Completed</label>
-        <input
-          id="completed"
-          type="checkbox"
-          name="completed"
-          checked={post.completed}
-          onChange={(e) => {
-            console.log(e.target.value);
-
-            const value = e.target.value ? e.target.value == "1" : false;
-
-            setPost({ ...post, completed: value });
-          }}
-        />
-      </div>
-      <input type="submit" className="btn btn-primary" />
-    </form>
+    <>
+      <Form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="title">Title</label>
+          <input
+            id="title"
+            type="text"
+            name="title"
+            value={post.title}
+            onChange={(e) => setPost({ ...post, title: e.target.value })}
+          />
+        </div>
+        <div>
+          <label htmlFor="body">Body</label>
+          <input
+            id="body"
+            type="text"
+            name="body"
+            value={post.body}
+            onChange={(e) => setPost({ ...post, body: e.target.value })}
+          />
+        </div>
+        <div>
+          <label htmlFor="completed">Completed</label>
+          <input
+            id="completed"
+            type="checkbox"
+            name="completed"
+            checked={post.completed}
+            onClick={() => {
+              const completed = !post.completed;
+              setPost({ ...post, completed: completed });
+            }}
+          />
+        </div>
+        <input type="submit" className="btn btn-primary" />
+      </Form>
+      {JSON.stringify(post)}
+    </>
   );
 };
 
