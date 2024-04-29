@@ -8,7 +8,6 @@ import { faEdit, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import "./PostList.css";
 import { usePosts } from "../services/post.queries.hooks";
-import AddPost from "./AddPost";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
