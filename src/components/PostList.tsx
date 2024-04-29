@@ -9,9 +9,12 @@ import { faEdit, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import "./PostList.css";
 import { usePosts } from "../services/post.queries.hooks";
 import AddPost from "./AddPost";
+import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const PostList = () => {
   const postsQuery = usePosts();
+  const navigate = useNavigate();
 
   if (postsQuery.isPending) return <span>...loading</span>;
   if (postsQuery.isError) return <span>Error retrieving data</span>;
@@ -21,7 +24,7 @@ const PostList = () => {
     const cellValue = props.valueFormatted ? props.valueFormatted : props.value;
     return (
       <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-        <span onClick={() => console.log(cellValue)}>
+        <span onClick={() => navigate(`/posts/${cellValue}/edit`)}>
           <FontAwesomeIcon icon={faEdit} />
         </span>
         <span onClick={() => console.log(cellValue)}>
@@ -55,16 +58,14 @@ const PostList = () => {
 
   return (
     <>
-      <AddPost />
-      <hr />
+      <h2>My Todos</h2>
       <div
         className="ag-theme-quartz"
         style={{ height: "300px", width: "765px" }}
       >
-        <h2>My Todos</h2>
-        <hr />
         <AgGridReact rowData={postsQuery.data.data} columnDefs={colDefs} />
       </div>
+      <Button onClick={() => navigate("/posts/add")}>Create Post</Button>
     </>
   );
 };
