@@ -67,11 +67,15 @@ const PostForm = ({ isAdd, existingPost, onSubmit }: Props) => {
         </div>
         <input type="submit" className="btn btn-primary" />
       </form>
+      <hr />
+      <div>existingPost:</div>
+      {JSON.stringify(existingPost)}
+      <hr />
+      <div>initPostState: </div>
+      {JSON.stringify(initPostState)}
+      <hr />
       <div>Post values with useState</div>
       {JSON.stringify(post)}
-      <hr />
-      <div>Incoming Post Value</div>
-      {JSON.stringify(existingPost)}
     </>
   );
 };
