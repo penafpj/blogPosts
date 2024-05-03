@@ -44,7 +44,7 @@ const PostList = () => {
       cellRenderer: "agCheckboxCellRenderer",
       cellEditor: "agCheckboxCellEditor",
     },
-    { field: "completedDate", width: 150 },
+    { field: "completionDate", width: 150 },
     {
       field: "id",
       headerName: "Actions",

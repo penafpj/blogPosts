@@ -5,6 +5,7 @@ import {
   getPostByIdService,
   updatePostService,
 } from "./post.services";
+import { Post } from "../types/Post";
 
 //  create a Hook.  Naming standard is the preface function name with "use" when creating Hooks
 export function usePosts() {
@@ -31,10 +32,19 @@ export function useAddPost() {
 }
 
 export function useUpdatePost() {
+  //    What you have to do is get access to the client with useQueryClient() -
+  //  another hook exported from react-query. This will give you the singleton QueryClient
+  //  that you have put into the QueryClientProvider:
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: updatePostService,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["posts"] }),
+    mutationFn: (post: Post) => updatePostService(post),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["post", variables.id],
+      });
+
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
   });
 }
