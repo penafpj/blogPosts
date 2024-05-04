@@ -7,7 +7,7 @@ const EditPost = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const editPost = useUpdatePost();
+  const updatePost = useUpdatePost();
 
   const { isError, isLoading, data: post, error } = usePostById(id!);
 
@@ -17,7 +17,7 @@ const EditPost = () => {
   const handleUpdatePost = (post: Post) => {
     if (post.completed) post.completionDate = new Date();
 
-    editPost.mutate({
+    updatePost.mutate({
       ...post,
     });
 
@@ -27,7 +27,11 @@ const EditPost = () => {
   return (
     <>
       <h1>Edit Post</h1>
-      <PostForm isAdd={false} existingPost={post} onSubmit={handleUpdatePost} />
+      <PostForm
+        isAdd={false}
+        initialPostValue={post}
+        onSubmit={handleUpdatePost}
+      />
     </>
   );
 };
