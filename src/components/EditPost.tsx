@@ -1,7 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useUpdatePost, usePostById } from "../services/post.queries.hooks";
+
 import PostForm from "./PostForm";
 import { Post } from "../types/Post";
+import { useUpdatePost } from "../services/useUpdatePost";
+import { usePostById } from "../services/usePostById";
 
 const EditPost = () => {
   const navigate = useNavigate();
