@@ -1,40 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Post } from "../types/Post";
 
 interface Props {
-  isAdd: boolean;
-  initialPostValue?: Post;
+  initialPostValue: Post;
   onSubmit: (post: Post) => void;
 }
 
-const PostForm = ({ isAdd, initialPostValue, onSubmit }: Props) => {
-  const newPost: Post = {
-    id: "",
-    title: "",
-    body: "",
-    completed: false,
-    completionDate: undefined,
-  };
-
-  const initPostState = isAdd ? newPost : initialPostValue!;
-
-  const [post, setPost] = useState<Post>(initPostState);
+const PostForm = ({ initialPostValue, onSubmit }: Props) => {
+  const [post, setPost] = useState<Post>(initialPostValue);
 
   // useEffect(() => {
-  //   setPost(initPostState);
-  // }, [initPostState]);
-
-  useEffect(() => {
-    console.log("PostForm init");
-    return () => {
-      console.log("PostForm unmounting");
-    };
-  }, []);
+  //   setPost(initialPostValue);
+  //   console.log("PostForm init");
+  //   return () => {
+  //     console.log("PostForm unmounting");
+  //   };
+  // }, [initialPostValue]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSubmit(post);
-    setPost(newPost); //  reset the form
   };
 
   const handleCompletedCheckbox = () => {
@@ -79,11 +64,8 @@ const PostForm = ({ isAdd, initialPostValue, onSubmit }: Props) => {
         <input type="submit" className="btn btn-primary" />
       </form>
       <hr />
-      <div>existingPost:</div>
+      <div>initialPostValue:</div>
       {JSON.stringify(initialPostValue)}
-      <hr />
-      <div>initPostState: </div>
-      {JSON.stringify(initPostState)}
       <hr />
       <div>Post values with useState</div>
       {JSON.stringify(post)}

@@ -27,11 +27,7 @@ const EditPost = () => {
   return (
     <>
       <h1>Edit Post</h1>
-      <PostForm
-        isAdd={false}
-        initialPostValue={post}
-        onSubmit={handleUpdatePost}
-      />
+      <PostForm initialPostValue={post!} onSubmit={handleUpdatePost} />
     </>
   );
 };
