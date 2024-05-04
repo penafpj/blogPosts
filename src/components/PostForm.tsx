@@ -9,14 +9,6 @@ interface Props {
 const PostForm = ({ initialPostValue, onSubmit }: Props) => {
   const [post, setPost] = useState<Post>(initialPostValue);
 
-  // useEffect(() => {
-  //   setPost(initialPostValue);
-  //   console.log("PostForm init");
-  //   return () => {
-  //     console.log("PostForm unmounting");
-  //   };
-  // }, [initialPostValue]);
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSubmit(post);

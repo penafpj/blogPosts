@@ -39,12 +39,13 @@ export function useUpdatePost() {
 
   return useMutation({
     mutationFn: (post: Post) => updatePostService(post),
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({
+
+    onSuccess: async (_, variables) => {
+      await queryClient.invalidateQueries({
         queryKey: ["post", variables.id],
       });
 
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      await queryClient.invalidateQueries({ queryKey: ["posts"] });
     },
   });
 }

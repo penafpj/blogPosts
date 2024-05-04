@@ -20,9 +20,9 @@ const EditPost = () => {
     updatePost.mutate({
       ...post,
     });
-
-    navigate("/");
   };
+
+  if (updatePost.isSuccess) navigate("/");
 
   return (
     <>
